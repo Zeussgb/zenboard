@@ -5,7 +5,9 @@ function Navbar() {
 
   return (
     <nav className="bg-indigo-600 text-white px-6 py-4 flex items-center justify-between shadow-lg">
-      <h1 className="text-2xl font-bold tracking-tight">ZenBoard</h1>
+      <Link to="/" className="text-2xl font-bold tracking-tight hover:opacity-80 transition-opacity">
+        ZenBoard
+      </Link>
       <div className="flex gap-4">
         <Link
           to="/notes"
