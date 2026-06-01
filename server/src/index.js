@@ -1,6 +1,5 @@
 const express = require('express')
 const cors = require('cors')
-const PORT = process.env.PORT || 3000
 const notesRoutes = require('./routes/notes.routes')
 const tasksRoutes = require('./routes/tasks.routes')
 
@@ -32,7 +31,11 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Error interno del servidor' })
 })
 
-// ARRANQUE
+// Exportamos para Vercel
+module.exports = app
+
+// ARRANQUE LOCAL
+const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
   console.log(`Servidor ZenBoard arrancado en http://localhost:${PORT}`)
 })
