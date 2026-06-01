@@ -1,27 +1,13 @@
-const Database = require('better-sqlite3')
-const path = require('path')
+const mysql = require('mysql2/promise')
 
-const db = new Database(path.join(__dirname, '../../zenboard.db'))
+const pool = mysql.createPool({
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  waitForConnections: true,
+  connectionLimit: 10
+})
 
-// Creamos las tablas si no existen
-db.exec(`
-  CREATE TABLE IF NOT EXISTS notes (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    title TEXT NOT NULL,
-    content TEXT DEFAULT '',
-    category TEXT DEFAULT 'Personal',
-    createdAt TEXT
-  );
-
-  CREATE TABLE IF NOT EXISTS tasks (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    title TEXT NOT NULL,
-    description TEXT DEFAULT '',
-    category TEXT DEFAULT 'Personal',
-    completed INTEGER DEFAULT 0,
-    deadline TEXT,
-    createdAt TEXT
-  );
-`)
-
-module.exports = db
+module.exports = pool

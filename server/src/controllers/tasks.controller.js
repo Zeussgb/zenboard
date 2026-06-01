@@ -1,43 +1,43 @@
 const tasksService = require('../services/tasks.service')
 
-const getTasks = (req, res) => {
-  const tasks = tasksService.obtenerTodas()
-  res.status(200).json(tasks)
+const getTasks = async (req, res, next) => {
+  try {
+    const tasks = await tasksService.obtenerTodas()
+    res.status(200).json(tasks)
+  } catch (error) {
+    next(error)
+  }
 }
 
-const createTask = (req, res, next) => {
+const createTask = async (req, res, next) => {
   try {
     const { title, description, category, deadline } = req.body
-
     if (!title || typeof title !== 'string' || title.trim().length < 1) {
       return res.status(400).json({ error: 'El título es obligatorio' })
     }
-
-    const tarea = tasksService.crearTarea({ title: title.trim(), description, category, deadline })
+    const tarea = await tasksService.crearTarea({ title: title.trim(), description, category, deadline })
     res.status(201).json(tarea)
   } catch (error) {
     next(error)
   }
 }
 
-const updateTask = (req, res, next) => {
+const updateTask = async (req, res, next) => {
   try {
     const id = parseInt(req.params.id)
     if (isNaN(id)) return res.status(400).json({ error: 'El id debe ser un número' })
-
-    const tarea = tasksService.actualizarTarea(id, req.body)
+    const tarea = await tasksService.actualizarTarea(id, req.body)
     res.status(200).json(tarea)
   } catch (error) {
     next(error)
   }
 }
 
-const deleteTask = (req, res, next) => {
+const deleteTask = async (req, res, next) => {
   try {
     const id = parseInt(req.params.id)
     if (isNaN(id)) return res.status(400).json({ error: 'El id debe ser un número' })
-
-    tasksService.eliminarTarea(id)
+    await tasksService.eliminarTarea(id)
     res.status(204).send()
   } catch (error) {
     next(error)
