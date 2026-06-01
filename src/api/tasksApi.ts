@@ -1,6 +1,6 @@
 import type { Task, CreateTaskDTO } from '../types'
 
-const API_URL = 'http://localhost:3000/api/v1/tasks'
+const API_URL = `${import.meta.env.VITE_API_URL}/api/v1/tasks`
 
 export async function getTasks(): Promise<Task[]> {
   const response = await fetch(API_URL)

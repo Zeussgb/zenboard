@@ -29,3 +29,5 @@ server/.env
 
 # Dependencias del servidor
 server/node_modules/
+
+.env

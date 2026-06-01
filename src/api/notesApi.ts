@@ -1,6 +1,6 @@
 import type { Note, CreateNoteDTO } from '../types'
 
-const API_URL = 'http://localhost:3000/api/v1/notes'
+const API_URL = `${import.meta.env.VITE_API_URL}/api/v1/notes`
 
 export async function getNotes(): Promise<Note[]> {
   const response = await fetch(API_URL)

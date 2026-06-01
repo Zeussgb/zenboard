@@ -1,6 +1,6 @@
 const express = require('express')
 const cors = require('cors')
-const { PORT } = require('./config/env')
+const PORT = process.env.PORT || 3000
 const notesRoutes = require('./routes/notes.routes')
 const tasksRoutes = require('./routes/tasks.routes')
 
